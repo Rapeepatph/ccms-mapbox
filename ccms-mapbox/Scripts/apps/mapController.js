@@ -1,18 +1,80 @@
 ﻿app.controller('myCtrl', function ($scope,$q, markerFactory, mockupDatas) {
     $scope.AreaId = 0;
     $scope.AreaName = '';
-    $scope.Services = [];
+    
 
     $("#myModal1").draggable({
         handle: ".modal-header"
     });
 
     //-----------------------------Service --------------------------------------------------------------------------------------------------------------------------------------
-    
-    //-----------------------Add New Service-------------------------------------------
+    var idService = 1;
+    var getServicebyId = function (id) {
+        var obj = $scope.Services.find(x=>x.id === id);
+        return obj;
+    }
+    var AddService = function (serviceName, data, areaId) {
+        var lastArray = $scope.Services.length - 1;
 
+        if (lastArray >= 0) {
+            idService = $scope.Services.length+1;
+        }
+        var obj = {
+            id: idService,
+            name: serviceName,
+            dataArray: data,
+            AreaId: parseInt(areaId)
+        }
+        $scope.Services.push(obj);
+    }
+    var changeArrayFormat = function (arrayInput) {
+        var output = [];
+        //$scope.choices.forEach(function (element) {
+        //    var obj = { "name": element.name, "parent": element.parent }
+        //    output.push(obj);
+        //});
+        arrayInput.forEach(function (element) {
+            var obj = { "name": element.name, "parent": element.parent }
+            output.push(obj);
+        });
+        return output;
+    }
+    //-----------------------Add New Service-------------------------------------------
     $scope.choices = [{ parent: null }];
     $scope.serviceName = '';
+    $scope.Services = [
+        {
+            id: 1,
+            name: "121.5 Receiver Main",
+            dataArray: changeArrayFormat([{ "parent": null, "name": "Main Unit" }, { "parent": "Main Unit", "name": "VCCS" }, { "parent": "VCCS", "name": "Selector" }, { "parent": "Selector", "name": "MUX" }, { "parent": "MUX", "name": "Antenna" }]),
+            AreaId: parseInt(1)
+        },
+        {
+            id: 2,
+            name: 'Radar',
+            dataArray: changeArrayFormat([{ 'parent': null, 'name': 'Transmitter/Receiver' }, { 'parent': 'Transmitter/Receive', 'name': 'Antenna' }]),
+            AreaId: parseInt(2)
+        },
+        {
+            id: 3,
+            name: 'Radar',
+            dataArray: changeArrayFormat([{ 'parent': null, 'name': 'VOR' }]),
+            AreaId: parseInt(3)
+        },
+        {
+            id: 4,
+            name: 'LLZ',
+            dataArray: changeArrayFormat([{ 'parent': null, 'name': 'LLZ' }]),
+            AreaId: parseInt(4)
+        },
+        {
+            id: 5,
+            name: 'GlideSlope',
+            dataArray: changeArrayFormat([{ 'parent': null, 'name': 'Glide Slope' }]),
+            AreaId: parseInt(5)
+        },
+    ];
+    
 
     $scope.addNewChoice = function () {
         var newItemNo = $scope.choices.length - 1;
@@ -25,21 +87,14 @@
             $scope.choices.splice(lastItem);
         }
     };
-    var changeArrayFormat = function (array) {
-        var output = [];
-        $scope.choices.forEach(function (element) {
-            var obj = { "name": element.name, "parent": element.parent }
-            output.push(obj);
-        });
-        return output;
-    }
+    
 
     $scope.updateDiagram = function () {
         var input = changeArrayFormat($scope.choices);
         $scope.choices = [{ parent: null }];
         // --------------------- update service 2 time----------------------------------------------------------------------
-        var obj = mockupDatas.AddService($scope.serviceName, input, $scope.AreaId)  //1. send update service to server
-        $scope.Services.push(obj);                                                  // 2. update service to this controller
+        AddService($scope.serviceName, input, $scope.AreaId)  //1. send update service 
+                                                   
         //-------------------------------------------------------------------------------------------------------------------
         $scope.listServices = $scope.Services.filter(function (e) {
             return e.AreaId == $scope.AreaId;
@@ -56,7 +111,7 @@
         var item = $scope.Services.find(x=>x.id === id);
         var indexItem = $scope.Services.indexOf(item);
         $scope.Services.splice(indexItem, 1);
-        mockupDatas.removeService(id);
+        //mockupDatas.removeService(id);
         updateListService($scope.AreaId);
         console.log('Service ctrl', $scope.Services);
     }
@@ -64,11 +119,8 @@
     //----------- go to service-------------------------------
     $scope.gotoService = function (id) {
 
-        //var data = mockupDatas.getServicebyId(id);
-        //mockupDatas.updateDiagram(data.dataArray, data.name);
-        //$("#myModal2").modal();
         var list = [];
-        list.push(mockupDatas.getServicebyId(id))
+        list.push(getServicebyId(id))
         $q.all(list).then(function success(res) {
 
             var unlock = mockupDatas.updateDiagram(res[0].dataArray, res[0].name);

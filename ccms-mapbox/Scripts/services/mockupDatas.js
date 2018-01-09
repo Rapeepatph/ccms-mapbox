@@ -1,58 +1,91 @@
 ﻿app.service('mockupDatas', function () {
-    var Services = [];
-    var idService = 1;
+    //var Services = [];
+   // var idService = 1;
     var Equipment = [
         {
             idArea: 1,
             equipments: [
                 {
                     id:'11',
-                    name: 'eq11'
+                    name: 'Main Unit'
                 },
                 {
                     id: '12',
-                    name:'eq12'
+                    name: 'VCCS'
                 },
                 {
                     id: '13',
-                    name:'eq13'
+                    name: 'Selector'
                 },
                 {
                     id: '14',
-                    name: 'eq14'
+                    name: 'MUX'
                 },
                 {
                     id: '15',
-                    name: 'eq15'
+                    name: 'Antenna'
                 },
                 {
                     id: '16',
-                    name: 'eq16'
+                    name: 'Standby Unit'
                 },
                 {
                     id: '17',
-                    name: 'eq17'
+                    name: 'Satellite RF Terminal'
                 },
                 {
                     id: '18',
-                    name: 'eq18'
+                    name: 'MF-TDMA Satellite Modem'
                 },
                 {
                     id: '19',
-                    name: 'eq19'
-                },
-                {
-                    id: '20',
-                    name: 'eq20'
+                    name: 'Wireless Link'
                 },
                 {
                     id: '111',
-                    name: 'eq111'
+                    name: 'Multi Access Multiplexer'
                 },
                 {
                     id: '112',
-                    name: 'eq112'
-                }
+                    name: 'Core Switch/Router'
+                },
+                {
+                    id: '113',
+                    name: 'Access Switch'
+                },
+                {
+                    id: '114',
+                    name: 'Firewall'
+                },
+                {
+                    id: '115',
+                    name: 'Server'
+                },
+                {
+                    id: '116',
+                    name: 'WLAN Controller'
+                },
+                {
+                    id: '117',
+                    name: 'WLAN Access Point'
+                },
+                {
+                    id: '118',
+                    name: 'UA Terminal'
+                },
+                {
+                    id: '119',
+                    name: 'Fibre Optic'
+                },
+                {
+                    id: '120',
+                    name: 'NTP'
+                },
+                {
+                    id: '121',
+                    name: 'AC / DC Power System'
+                },
+            
             ]
         },
         {
@@ -60,15 +93,43 @@
             equipments: [
                 {
                     id: '21',
-                    name: 'eq21'
+                    name: 'Transmitter/Receiver'
                 },
                 {
                     id: '22',
-                    name: 'eq22'
+                    name: 'Antenna'
                 },
                 {
                     id: '23',
-                    name: 'eq23'
+                    name: 'CPS'
+                },
+                {
+                    id: '24',
+                    name: 'SDP'
+                },
+                {
+                    id: '25',
+                    name: 'RPS'
+                },
+                {
+                    id: '26',
+                    name: 'CDP'
+                },
+                {
+                    id: '27',
+                    name: 'SUP'
+                },
+                {
+                    id: '28',
+                    name: 'LCL'
+                },
+                {
+                    id: '29',
+                    name: 'GND'
+                },
+                {
+                    id: '30',
+                    name: 'COR'
                 }
             ]
         },
@@ -77,29 +138,40 @@
             equipments: [
                 {
                     id: '31',
-                    name: 'eq31'
+                    name: 'VOR'
                 },
                 {
                     id: '32',
-                    name: 'eq32'
+                    name: 'DME'
+                },
+                 {
+                     id: '33',
+                     name: 'DVOR'
+                 },
+                {
+                    id: '34',
+                    name: 'LLZ'
                 },
                 {
-                    id: '33',
-                    name: 'eq33'
-                }
+                    id: '35',
+                    name: 'Glide Slope'
+                },
             ]
         }
+
     ]
-    this.removeService = function (id) {
-        var item =Services.find(x=>x.id === id);
-        var indexItem = Services.indexOf(item);
-        Services.splice(indexItem, 1);
-        console.log('Services Mock', Services);
-    }
-    this.getServicebyId = function (id) {
-        var obj = Services.find(x=>x.id === id);
-        return obj;
-    }
+    //this.removeService = function (id) {
+    //    var item =Services.find(x=>x.id === id);
+    //    var indexItem = Services.indexOf(item);
+    //    Services.splice(indexItem, 1);
+    //    console.log('Services Mock', Services);
+    //}
+    //this.getServicebyId = function (id) {                 -------------------------
+    //    var obj = Services.find(x=>x.id === id);                  move to myCtrl
+    //    return obj;                                       -------------------------
+    //}
+
+
     this.getEquipment = function (id) {
         //var obj = Equipment.find(x=>x.idArea === id)       query equipment by areaId 
         
@@ -112,32 +184,35 @@
         var obj = {equipments : arrayEquip};
         return obj;
     }
-    this.getListService = function (areaId) {
-        var defer = $.Deferred();
-        var listServices = Services.filter(function (e) {
-            return e.AreaId == areaId;
-        })
+
+
+
+    //this.getListService = function (areaId) {
+    //    var defer = $.Deferred();
+    //    var listServices = Services.filter(function (e) {
+    //        return e.AreaId == areaId;
+    //    })
         
-        return defer.resolve(listServices);
+    //    return defer.resolve(listServices);
         
         
-    }
-    this.AddService = function (serviceName, data,areaId) {
-        var lastArray = Services.length - 1;
+    //}
+    //this.AddService = function (serviceName, data,areaId) {
+    //    var lastArray = Services.length - 1;
         
-        if (lastArray >= 0) {
-            idService++;
-        }
-        var obj = {
-            id:idService,
-            name: serviceName,
-            dataArray: data,
-            AreaId: parseInt(areaId)
-        }
-        Services.push(obj);
-        console.log('Services Mock', Services);
-        return obj;
-    }
+    //    if (lastArray >= 0) {
+    //        idService++;
+    //    }
+    //    var obj = {
+    //        id:idService,
+    //        name: serviceName,
+    //        dataArray: data,
+    //        AreaId: parseInt(areaId)
+    //    }
+    //    Services.push(obj);
+    //    console.log('Services Mock', Services);
+    //    return obj;
+    //}
     this.generateDiagram = function (inputData,nameofService) {
 
         var treeData = changeDataToTreeData(inputData);
