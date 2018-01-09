@@ -52,12 +52,12 @@
         {
             id: 2,
             name: 'Radar',
-            dataArray: changeArrayFormat([{ 'parent': null, 'name': 'Transmitter/Receiver' }, { 'parent': 'Transmitter/Receive', 'name': 'Antenna' }]),
+            dataArray: changeArrayFormat([{ 'parent': null, 'name': 'Transmitter/Receiver' }, { 'parent': 'Transmitter/Receiver', 'name': 'Antenna' }]),
             AreaId: parseInt(2)
         },
         {
             id: 3,
-            name: 'Radar',
+            name: 'VOR',
             dataArray: changeArrayFormat([{ 'parent': null, 'name': 'VOR' }]),
             AreaId: parseInt(3)
         },
