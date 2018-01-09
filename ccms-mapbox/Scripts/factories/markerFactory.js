@@ -1,7 +1,7 @@
 ﻿app.factory('markerFactory', function () {
     return {
 
-        newMarker: function (arrayGeo) {
+        newMarker: function (arrayGeo,paintObj,id) {
             var objArrayLatLng = [];
             if (arrayGeo.length > 0) {
                 for (i = 0; i < arrayGeo.length; i++) {
@@ -24,7 +24,7 @@
                     }
                 }
                 var objNewMarker = {
-                    "id": "symbols",
+                    "id": id,
                     "type": "symbol",
                     "source": {
                         "type": "geojson",
@@ -33,6 +33,7 @@
                             "features": objArrayLatLng
                         }
                     },
+                    //"paint": paintObj,
                     "layout": {
                         "icon-image": "cat",
                         "icon-size": 0.05
@@ -40,7 +41,29 @@
                 }
                 return objNewMarker;
             }
-        }
+        },
+
+        pointsMarker: function (arrayGeo) {
+            var objArrayLatLng = [];
+            if (arrayGeo.length > 0) {
+                for (i = 0; i < arrayGeo.length; i++) {
+                    if (arrayGeo[i].lat != null && arrayGeo[i].lng != null) {
+                        var objLatLng = {
+                            "type": "Feature",
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    arrayGeo[i].lng,
+                                    arrayGeo[i].lat
+                                ]
+                            }
+                        }
+                        objArrayLatLng.push(objLatLng);
+                    }
+                }
+            }
+            return objArrayLatLng;
+        }  
     }
     
 });

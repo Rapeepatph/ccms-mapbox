@@ -1,53 +1,4 @@
 ﻿<style>
-    .modal {
-}
-.vertical-alignment-helper {
-    display:table;
-    height: 100%;
-    width: 100%;
-}
-.vertical-align-center {
-    /* To center vertically */
-    display: table-cell;
-    vertical-align: middle;
-}
-.modal-content {
-    /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
-    width:inherit;
-    height:inherit;
-    /* To center horizontally */
-    margin: 0 auto;
-}
-</style>
-<!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Launch demo modal</button>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="vertical-alignment-helper">
-        <div class="modal-dialog vertical-align-center">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-
-                </div>
-                <div class="modal-body">...</div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-@*<style>
     .node {
         cursor: pointer;
     }
@@ -67,55 +18,83 @@
         stroke: #ccc;
         stroke-width: 2px;
     }
+
     .title {
-  font: bold 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-    #myModal2 .modal-dialog  {width:75%;}
+        font: bold 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
 
-</style>*@
+    #myModal2 .modal-dialog {
+        width: 75%;
+    }
 
-@*<div id="myModal2" class="modal fade" ng-controller="dataCtrl">
-    <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Detail of Service</h4>
-                
-            </div>
-            <div class="modal-body">
-                <div >   
-                    <input type="hidden" class="areaId" id="areaId"/>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div id="tree-diagram"></div>
+    .vertical-alignment-helper {
+        display: table;
+        height: 100%;
+        width: 100%;
+    }
+
+    .vertical-align-center {
+        /* To center vertically */
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .modal-content {
+        /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+        width: inherit;
+        height: inherit;
+        /* To center horizontally */
+        margin: 0 auto;
+    }
+</style>
+
+<div id="myModal2" class="modal fade" ng-controller="dataCtrl">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Detail of Service</h4>
+
+                </div>
+                <div class="modal-body">
+                    <div>
+                        @*dataController*@
+                        <input type="hidden" class="areaId" id="areaId" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="tree-diagram"></div>
+                            </div>
+
                         </div>
 
                     </div>
-
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
-            </div>
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>*@
 
-@*<div ng-controller="myCtrl">                             
-    
-    
-   
+</div>
+
+<div ng-controller="myCtrl">
+    @*mapController*@
+
+
+    @*map*@
     <div class="row">
-        
+
         <div id='map' style='width:100%; height: 1000px;'></div>
     </div>
 
-    
-        <div id="myModal1" class="modal fade">
-            <div class="modal-dialog modal-lg">
+
+    <div id="myModal1" class="modal fade">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog  vertical-align-center">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -125,27 +104,28 @@
                     <div class="modal-body">
                         <ul>
                             <li ng-repeat="x in listServices">
-                               <a href="#" ng-click="gotoService(x.id)">{{x.name}}</a>
-                               <a href="#">
-                                   <span class="glyphicon glyphicon-remove" ng-click="removeService(x.id)"></span>
-                               </a>
-                               <a href="#">
-                                   <span class="glyphicon glyphicon-off" ng-click="updateStatus(x.id)"></span>
-                               </a>
+                                <a href="#" ng-click="gotoService(x.id)">{{x.name}}</a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-remove" ng-click="removeService(x.id)"></span>
+                                </a>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-off" ng-click="updateStatus(x.id)"></span>
+                                </a>
                             </li>
                         </ul>
-                        
+
                     </div>
                     <div class="modal-footer">
                         <div class="row ">
                             <div class="col-md-4 text-left">
+                                @*<button type="button" class="btn btn-success" ng-click="addNewService(AreaId)">Add Service</button>*@
                                 <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                     Add Service
                                 </button>
-                                
+
                             </div>
                         </div>
-                     
+
                         <div class="collapse in" id="collapseExample">
                             <div class="panel-body">
                                 <div class="row">
@@ -171,12 +151,17 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
+
+
                     </div>
                 </div>
                 <!-- /.modal-content -->
             </div>
             <!-- /.modal-dialog -->
         </div>
-</div>*@
+
+    </div>
+
+
+
+</div>

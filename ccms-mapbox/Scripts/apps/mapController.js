@@ -1,6 +1,4 @@
 ﻿app.controller('myCtrl', function ($scope,$q, markerFactory, mockupDatas) {
-    $scope.firstName = "John";
-    $scope.lastName = "Doe";
     $scope.AreaId = 0;
     $scope.AreaName = '';
     $scope.Services = [];
@@ -9,30 +7,8 @@
         handle: ".modal-header"
     });
 
-    $scope.removeService = function (id) {
-       
-        var item = $scope.Services.find(x=>x.id === id);
-        var indexItem = $scope.Services.indexOf(item);
-        $scope.Services.splice(indexItem, 1);
-        mockupDatas.removeService(id);
-        updateListService($scope.AreaId);
-        console.log('Service ctrl', $scope.Services);
-    }
-    $scope.gotoService = function (id) {
-        
-        //var data = mockupDatas.getServicebyId(id);
-        //mockupDatas.updateDiagram(data.dataArray, data.name);
-        //$("#myModal2").modal();
-        var list = [];
-        list.push(mockupDatas.getServicebyId(id))
-        $q.all(list).then(function success(res) {
-            
-            var unlock  = mockupDatas.updateDiagram(res[0].dataArray, res[0].name);
-            if (unlock) {
-                openModal('#myModal2');
-            }
-        })
-    }
+    //-----------------------------Service --------------------------------------------------------------------------------------------------------------------------------------
+    
     //-----------------------Add New Service-------------------------------------------
 
     $scope.choices = [{ parent: null }];
@@ -74,7 +50,35 @@
     
     //---------------------------------------------------------
 
+    //--------------------remove service-----------
+    $scope.removeService = function (id) {
 
+        var item = $scope.Services.find(x=>x.id === id);
+        var indexItem = $scope.Services.indexOf(item);
+        $scope.Services.splice(indexItem, 1);
+        mockupDatas.removeService(id);
+        updateListService($scope.AreaId);
+        console.log('Service ctrl', $scope.Services);
+    }
+    //-------------------------------------------------------
+    //----------- go to service-------------------------------
+    $scope.gotoService = function (id) {
+
+        //var data = mockupDatas.getServicebyId(id);
+        //mockupDatas.updateDiagram(data.dataArray, data.name);
+        //$("#myModal2").modal();
+        var list = [];
+        list.push(mockupDatas.getServicebyId(id))
+        $q.all(list).then(function success(res) {
+
+            var unlock = mockupDatas.updateDiagram(res[0].dataArray, res[0].name);
+            if (unlock) {
+                openModal('#myModal2');
+            }
+        })
+    }
+    //----------------------------------------------------------------
+    //-------------------update status --------------------------------------
     $scope.updateStatus = function (serviceId) {
         var item = $scope.Services.find(x=>x.id === serviceId);
         if (item.dataArray[0].alarm == "y") {
@@ -88,7 +92,8 @@
         mockupDatas.updateDiagram(item.dataArray, item.name);
     }
 
-    
+    //----------------------------------------------------------------------
+    //--------------------- update list of service ----------------------------------------
     var updateListService = function () {
         $scope.listServices = [];
         $scope.listServices = $scope.Services.filter(function (e) {
@@ -96,7 +101,10 @@
         });
         console.log('listService', $scope.listServices);
     }
+    //--------------------------------------------------------------------------------------
 
+
+    //------------------------------------------------------------------------------------------------------------------------------------------------------------------
     var openModal = function (name) {
         $(name).modal('show');
     }
@@ -106,55 +114,73 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoicmFwZWVwYXRwaCIsImEiOiJjamFpejVrOGgyMXBxMzNxdTQ5aWdtcTM1In0.XCwwqYiQ2AA9va7j2jUMwg';
     var map = new mapboxgl.Map({
         container: 'map', // container id
-        style: 'mapbox://styles/mapbox/streets-v9',
+        style: 'mapbox://styles/mapbox/dark-v9',
         center: [102.788247, 17.386436], // starting position
         zoom: 15 ,// starting zoom
         bearing: 28, // bearing in degrees
     });
 
     // Add zoom and rotation controls to the map.
-    map.addControl(new mapboxgl.NavigationControl());
-    
-    var obj = markerFactory.newMarker([
-         {
-             id:1,
-             name:'Tower',
-             lng: 102.777419,
-             lat: 17.386123
-         },
-         {
-             id: 2,
-             name: 'SSR',
-             lng: 102.769973,
-             lat: 17.387600
-         },
-         {
-             id: 3,
-             name: 'VOR',
-             lng: 102.774959,
-             lat: 17.384789
-         },
-         {
-             id: 4,
-             name: 'Localizer',
-             lng: 102.771181,
-             lat: 17.394792
-         },
-         {
-             id: 5,
-             name: 'Glide Slope',
-             lng: 102.798872,
-             lat: 17.382417
-         }
-    ])
+   map.addControl(new mapboxgl.NavigationControl());
+
+    var framesPerSecond = 30;               //-----------------------------
+    var initialOpacity = 1                  //
+    var opacity = initialOpacity;           //    initial animate circle  
+    var initialRadius = 8;                  //
+    var radius = initialRadius;             //
+    var maxRadius = 18;                     //-----------------------------
+    var coordinateMarker = [
+             {
+                 id: 1,
+                 name: 'Tower',
+                 lng: 102.777419,
+                 lat: 17.386123
+             },
+             {
+                 id: 2,
+                 name: 'SSR',
+                 lng: 102.769973,
+                 lat: 17.387600
+             },
+             {
+                 id: 3,
+                 name: 'VOR',
+                 lng: 102.774959,
+                 lat: 17.384789
+             },
+             {
+                 id: 4,
+                 name: 'Localizer',
+                 lng: 102.771181,
+                 lat: 17.394792
+             },
+             {
+                 id: 5,
+                 name: 'Glide Slope',
+                 lng: 102.798872,
+                 lat: 17.382417
+             }
+    ];
+
+
+    var paintObj = {
+        "circle-radius": initialRadius,
+        "circle-radius-transition": { duration: 0 },
+        "circle-opacity-transition": { duration: 0 },
+        "circle-color": "#007cbf"
+    }
+   
+    var obj = markerFactory.newMarker(coordinateMarker, paintObj,"symbols");
+
     map.on('load', function () {
+        
         // Add a symbol layer.
-        map.loadImage('/images/city.png', function (error, image) {
+        map.loadImage('/images/Yellowcity.png', function (error, image) {
             if (error) throw error;
             map.addImage('cat', image);
             map.addLayer(obj);
         })
-        //map.addLayer(obj);
+
 
         // Center the map on the coordinates of any clicked symbol from the 'symbols' layer.
         map.on('click', 'symbols', function (e) {

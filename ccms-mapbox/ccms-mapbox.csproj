@@ -190,6 +190,7 @@
     <Content Include="images\city.png" />
     <Content Include="images\pin-green.png" />
     <Content Include="images\pin-pink.png" />
+    <Content Include="images\Yellowcity.png" />
     <Content Include="Scripts\apps\app.js" />
     <Content Include="Scripts\apps\dataController.js" />
     <Content Include="Scripts\apps\mapController.js" />
