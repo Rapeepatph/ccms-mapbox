@@ -160,6 +160,54 @@
         }
 
     ]
+    this.getCoordinateMarker = function () {
+        var obj = [
+                    {
+                        id: 1,
+                        name: 'Tower',
+                        lng: 102.777419,
+                        lat: 17.386123
+                    },
+                    {
+                        id: 2,
+                        name: 'SSR',
+                        lng: 102.769973,
+                        lat: 17.387600
+                    },
+                    {
+                        id: 3,
+                        name: 'VOR',
+                        lng: 102.774959,
+                        lat: 17.384789
+                    },
+                    {
+                        id: 4,
+                        name: 'Localizer',
+                        lng: 102.771181,
+                        lat: 17.394792
+                    },
+                    {
+                        id: 5,
+                        name: 'Glide Slope',
+                        lng: 102.798872,
+                        lat: 17.382417
+                    }
+        ];
+        return obj;
+}
+
+    this.getMap = function () {
+        mapboxgl.accessToken = 'pk.eyJ1IjoicmFwZWVwYXRwaCIsImEiOiJjamFpejVrOGgyMXBxMzNxdTQ5aWdtcTM1In0.XCwwqYiQ2AA9va7j2jUMwg';
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/dark-v9',
+            center: [102.788247, 17.386436], // starting position
+            zoom: 15,// starting zoom
+            bearing: 28, // bearing in degrees
+        });
+        return map;
+
+}
     //this.removeService = function (id) {
     //    var item =Services.find(x=>x.id === id);
     //    var indexItem = Services.indexOf(item);
@@ -251,7 +299,7 @@
     function generate(treeData, nameofService, widthModal) {
 
         
-        if (!widthModal)
+        if (widthModal<=0)
             widthModal = 1523;
         // ************** Generate the tree diagram	 *****************
         var margin = { top: 20, right: 120, bottom: 20, left: 120 },

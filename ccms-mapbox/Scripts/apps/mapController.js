@@ -89,7 +89,7 @@
     };
     
 
-    $scope.updateDiagram = function () {
+    $scope.addNewService = function () {
         var input = changeArrayFormat($scope.choices);
         $scope.choices = [{ parent: null }];
         // --------------------- update service 2 time----------------------------------------------------------------------
@@ -163,14 +163,16 @@
 
 
     //-----------------------------------Create map---------------------------------------------------------------------------------
-    mapboxgl.accessToken = 'pk.eyJ1IjoicmFwZWVwYXRwaCIsImEiOiJjamFpejVrOGgyMXBxMzNxdTQ5aWdtcTM1In0.XCwwqYiQ2AA9va7j2jUMwg';
-    var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/mapbox/dark-v9',
-        center: [102.788247, 17.386436], // starting position
-        zoom: 15 ,// starting zoom
-        bearing: 28, // bearing in degrees
-    });
+    //mapboxgl.accessToken = 'pk.eyJ1IjoicmFwZWVwYXRwaCIsImEiOiJjamFpejVrOGgyMXBxMzNxdTQ5aWdtcTM1In0.XCwwqYiQ2AA9va7j2jUMwg';
+    //var map = new mapboxgl.Map({
+    //    container: 'map', // container id
+    //    style: 'mapbox://styles/mapbox/dark-v9',
+    //    center: [102.788247, 17.386436], // starting position
+    //    zoom: 15 ,// starting zoom
+    //    bearing: 28, // bearing in degrees
+    //});
+
+    var map = mockupDatas.getMap();
 
     // Add zoom and rotation controls to the map.
    map.addControl(new mapboxgl.NavigationControl());
@@ -181,48 +183,12 @@
     var initialRadius = 8;                  //
     var radius = initialRadius;             //
     var maxRadius = 18;                     //-----------------------------
-    var coordinateMarker = [
-             {
-                 id: 1,
-                 name: 'Tower',
-                 lng: 102.777419,
-                 lat: 17.386123
-             },
-             {
-                 id: 2,
-                 name: 'SSR',
-                 lng: 102.769973,
-                 lat: 17.387600
-             },
-             {
-                 id: 3,
-                 name: 'VOR',
-                 lng: 102.774959,
-                 lat: 17.384789
-             },
-             {
-                 id: 4,
-                 name: 'Localizer',
-                 lng: 102.771181,
-                 lat: 17.394792
-             },
-             {
-                 id: 5,
-                 name: 'Glide Slope',
-                 lng: 102.798872,
-                 lat: 17.382417
-             }
-    ];
+    var coordinateMarker = mockupDatas.getCoordinateMarker();
 
 
-    var paintObj = {
-        "circle-radius": initialRadius,
-        "circle-radius-transition": { duration: 0 },
-        "circle-opacity-transition": { duration: 0 },
-        "circle-color": "#007cbf"
-    }
+    
    
-    var obj = markerFactory.newMarker(coordinateMarker, paintObj,"symbols");
+    var obj = markerFactory.newMarker(coordinateMarker,"symbols");
 
     map.on('load', function () {
         

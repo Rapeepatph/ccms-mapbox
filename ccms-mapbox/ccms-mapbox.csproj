@@ -193,6 +193,7 @@
     <Content Include="images\Yellowcity.png" />
     <Content Include="Scripts\apps\app.js" />
     <Content Include="Scripts\apps\dataController.js" />
+    <Content Include="Scripts\apps\displayMapController.js" />
     <Content Include="Scripts\apps\mapController.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

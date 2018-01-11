@@ -24,6 +24,7 @@ namespace ccms_mapbox
                  "~/Scripts/jquery-ui.min.js",
                 "~/Scripts/apps/app.js",
                       "~/Scripts/apps/mapController.js",
+                      "~/Scripts/apps/displayMapController.js",
                       "~/Scripts/apps/dataController.js",
                       "~/Scripts/factories/markerFactory.js",
                       "~/Scripts/services/mockupDatas.js"

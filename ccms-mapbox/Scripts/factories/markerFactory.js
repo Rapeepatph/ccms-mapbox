@@ -1,7 +1,7 @@
 ﻿app.factory('markerFactory', function () {
     return {
 
-        newMarker: function (arrayGeo,paintObj,id) {
+        newMarker: function (arrayGeo,id) {
             var objArrayLatLng = [];
             if (arrayGeo.length > 0) {
                 for (i = 0; i < arrayGeo.length; i++) {
