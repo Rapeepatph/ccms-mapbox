@@ -1,7 +1,7 @@
 ﻿app.factory('markerFactory', function () {
     return {
 
-        newMarker: function (arrayGeo,id) {
+        newMarker: function (arrayGeo,id,type,paintObj) {
             var objArrayLatLng = [];
             if (arrayGeo.length > 0) {
                 for (i = 0; i < arrayGeo.length; i++) {
@@ -23,23 +23,40 @@
                         objArrayLatLng.push(objLatLng);
                     }
                 }
-                var objNewMarker = {
-                    "id": id,
-                    "type": "symbol",
-                    "source": {
-                        "type": "geojson",
-                        "data": {
-                            "type": "FeatureCollection",
-                            "features": objArrayLatLng
+                if (type == 'symbol') {
+                    var objNewMarker = {
+                        "id": id,
+                        "type": type,
+                        "source": {
+                            "type": "geojson",
+                            "data": {
+                                "type": "FeatureCollection",
+                                "features": objArrayLatLng
+                            }
+                        },
+                        
+                        "layout": {
+                            "icon-image": "cat",
+                            "icon-size": 0.05
                         }
-                    },
-                    //"paint": paintObj,
-                    "layout": {
-                        "icon-image": "cat",
-                        "icon-size": 0.05
                     }
+                    return objNewMarker;
                 }
-                return objNewMarker;
+                else if (type == 'circle') {
+                    var objNewMarker = {
+                        "id": id,
+                        "type": type,
+                        "source": {
+                            "type": "geojson",
+                            "data": {
+                                "type": "FeatureCollection",
+                                "features": objArrayLatLng
+                            }
+                        },
+                        "paint": paintObj,
+                    }
+                    return objNewMarker;
+                }
             }
         },
 

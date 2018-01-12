@@ -177,18 +177,13 @@
     // Add zoom and rotation controls to the map.
    map.addControl(new mapboxgl.NavigationControl());
 
-    var framesPerSecond = 30;               //-----------------------------
-    var initialOpacity = 1                  //
-    var opacity = initialOpacity;           //    initial animate circle  
-    var initialRadius = 8;                  //
-    var radius = initialRadius;             //
-    var maxRadius = 18;                     //-----------------------------
+    
     var coordinateMarker = mockupDatas.getCoordinateMarker();
 
 
     
    
-    var obj = markerFactory.newMarker(coordinateMarker,"symbols");
+    var obj = markerFactory.newMarker(coordinateMarker, "symbols", 'symbol');
 
     map.on('load', function () {
         
